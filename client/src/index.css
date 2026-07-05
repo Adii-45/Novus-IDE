@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans text-[15px];
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.35);
+  }
+
+  /* Slim, theme-matched scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 216, 0.18) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 216, 0.16);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 216, 0.3);
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(99, 102, 241, 0.7);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-line rounded-xl3 shadow-soft;
+  }
+
+  .glass {
+    background: rgba(14, 21, 37, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-violet;
+  }
+
+  .skeleton {
+    @apply rounded-lg bg-surface-raised relative overflow-hidden;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 animate-shimmer;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 216, 0.07), transparent);
+    background-size: 400px 100%;
+  }
+}
+
+/* ---------- Remote collaborator cursors (y-monaco decorations) ---------- */
+.yRemoteSelection {
+  background-color: var(--collab-color, rgba(99, 102, 241, 0.35));
+  opacity: 0.45;
+}
+
+.yRemoteSelectionHead {
+  position: absolute;
+  border-left: 2px solid var(--collab-color, #6366f1);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.yRemoteSelectionHead::after {
+  content: var(--collab-name, '');
+  position: absolute;
+  top: -1.35em;
+  left: -2px;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: Inter, sans-serif;
+  color: white;
+  white-space: nowrap;
+  border-radius: 4px 4px 4px 0;
+  background-color: var(--collab-color, #6366f1);
+  pointer-events: none;
+  opacity: 0;
+  animation: collab-flag 0.15s ease-out forwards;
+}
+
+@keyframes collab-flag {
+  to {
+    opacity: 1;
+  }
+}
+
+/* xterm fills its panel */
+.terminal-host .xterm {
+  height: 100%;
+  padding: 8px 10px;
+}
